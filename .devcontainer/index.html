@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Circle with D3.js</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      #container {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Extended Raft</h1>
+
+    <div id="container"></div>
+
+    <script type="module">
+      import { Cluster } from "./components/cluster.js";
+      const width = 1024,
+        height = 800;
+      const canvas = d3
+        .select("#container")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+      let cluster = new Cluster(["A", "B", "C"]);
+      cluster.x = width / 2;
+      cluster.y = height / 2;
+      cluster.r = 200;
+      cluster.offsetAngle = -Math.PI / 2;
+      cluster.render(canvas);
+      cluster.elect("A");
+      cluster.send("A", "B");
+    </script>
+  </body>
+</html>
